@@ -1,4 +1,4 @@
-# Pizzeria Web Application
+<img width="468" height="217" alt="backend-connetion" src="https://github.com/user-attachments/assets/45ba3b32-401e-4b8e-93be-700674a5d2ab" /># Pizzeria Web Application
 
 A full‑stack web application built as a **semester project** for the Web Technologies course.  
 This project simulates an online pizzeria system with **user authentication, order booking, and order management**.
@@ -10,7 +10,8 @@ This project simulates an online pizzeria system with **user authentication, ord
 - Place and manage pizza orders  
 - Booking system for reservations  
 - Error handling and validation middleware  
-- Responsive frontend with HTML, CSS, and JavaScript  
+- Responsive frontend with HTML, CSS, and JavaScript
+- Data storage in database
 
 ---
 
@@ -67,6 +68,23 @@ pizzeria-backend/
 
 ##  Screenshots
 
+### Home Page
+![Home Page](assets/Home-Page.png)
+
+### Menu Page
+![Menu Page](assets/menu.png)
+
+### Signup / Login
+![Signup/Login](assets/sign-up_login.png)
+
+### Order Placement & Checkout
+![Order Placement](assets/order-placement_and_checkout.png)
+
+### Backend Connection
+![Backend Connection](assets/backend-connection.png)
+
+### Database Connectivity
+![Database Connectivity](assets/data_base_connectivity.png)
 
 ---
 
