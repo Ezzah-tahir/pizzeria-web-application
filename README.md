@@ -79,7 +79,7 @@ pizzeria-backend/
 ![Order Placement](pizzeria/assets/order-placement_and_checkout.png)
 
 ### Backend Connection
-![Backend Connection](pizzeria/assets/backend-connection.png)
+![Backend Connection](pizzeria/assets/backend-connetion.png)
 
 ### Database Connectivity
 ![Database Connectivity](pizzeria/assets/data_base_connectivity.png)
