@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – The Pizzeria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--dark);
+    }
+
+    /* Left panel — brand visual */
+    .auth-visual {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(192,57,43,0.85) 0%, rgba(26,26,26,0.9) 100%),
+        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 50px;
+      text-align: center;
+    }
+
+    .auth-visual-logo {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 30px;
+    }
+    .auth-visual-logo span { color: var(--yellow); }
+
+    .auth-visual h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      color: var(--white);
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    .auth-visual p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      max-width: 360px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .auth-visual-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .auth-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 18px;
+      text-align: left;
+    }
+
+    .auth-feature-item i {
+      color: var(--yellow);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .auth-feature-item span {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.88rem;
+    }
+
+    /* Right panel — form */
+    .auth-form-panel {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 50px;
+      overflow-y: auto;
+    }
+
+    .auth-form-wrap {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .auth-form-header {
+      margin-bottom: 35px;
+    }
+
+    .auth-form-header h1 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .auth-form-header p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    .auth-form-header p a {
+      color: var(--red);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .auth-form-header p a:hover { text-decoration: underline; }
+
+    .auth-form .form-group { margin-bottom: 20px; }
+
+    .auth-form .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .input-icon-wrap {
+      position: relative;
+    }
+
+    .input-icon-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .input-icon-wrap input {
+      width: 100%;
+      padding: 13px 15px 13px 40px;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    .input-icon-wrap input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.12);
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gray);
+      font-size: 0.9rem;
+      transition: color var(--transition);
+    }
+    .toggle-password:hover { color: var(--red); }
+
+    .form-row-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.88rem;
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      font-size: 0.88rem;
+      color: var(--red);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    .auth-submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font-body);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--transition);
+      margin-bottom: 20px;
+    }
+    .auth-submit-btn:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(192,57,43,0.4);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e8e8e8;
+    }
+    .auth-divider span {
+      font-size: 0.82rem;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .back-home {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 25px;
+      transition: color var(--transition);
+    }
+    .back-home:hover { color: var(--red); }
+
+    .auth-error {
+      background: #fdecea;
+      border: 1px solid #f5c6cb;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: #c0392b;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .auth-error.show { display: block; }
+
+    .auth-success {
+      background: #eafaf1;
+      border: 1px solid #a9dfbf;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: #1e8449;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .auth-success.show { display: block; }
+
+    /* Redirect notice (shown when redirected from protected action) */
+    .auth-redirect-notice {
+      background: rgba(244,197,66,0.15);
+      border: 1px solid var(--yellow);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      display: none;
+    }
+    .auth-redirect-notice.show { display: flex; align-items: center; gap: 10px; }
+    .auth-redirect-notice i { color: #e0a800; }
+    .auth-redirect-notice span { font-size: 0.88rem; color: var(--dark); }
+
+    @media (max-width: 800px) {
+      .auth-page { grid-template-columns: 1fr; }
+      .auth-visual { display: none; }
+      .auth-form-panel { padding: 40px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- Left: Brand Visual -->
+  <div class="auth-visual">
+    <a href="index.html" class="auth-visual-logo">The <span>Pizzeria</span></a>
+    <h2>Welcome Back,<br>Pizza Lover!</h2>
+    <p>Sign in to order your favourite pizzas, track your orders, and enjoy exclusive member deals.</p>
+    <div class="auth-visual-features">
+      <div class="auth-feature-item">
+        <i class="fas fa-pizza-slice"></i>
+        <span>Order online with saved preferences</span>
+      </div>
+      <div class="auth-feature-item">
+        <i class="fas fa-motorcycle"></i>
+        <span>Real-time delivery tracking</span>
+      </div>
+      <div class="auth-feature-item">
+        <i class="fas fa-star"></i>
+        <span>Earn loyalty points on every order</span>
+      </div>
+      <div class="auth-feature-item">
+        <i class="fas fa-tag"></i>
+        <span>Member-only deals and discounts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Login Form -->
+  <div class="auth-form-panel">
+    <div class="auth-form-wrap">
+
+      <div class="auth-form-header">
+        <h1>Sign In</h1>
+        <p>Don't have an account? <a href="signup.html">Create one free</a></p>
+      </div>
+
+      <!-- Redirect notice (shown if user tried to order without logging in) -->
+      <div class="auth-redirect-notice" id="redirectNotice">
+        <i class="fas fa-lock"></i>
+        <span>Please sign in to continue with your order.</span>
+      </div>
+
+      <!-- Error / Success messages -->
+      <div class="auth-error" id="loginError"></div>
+      <div class="auth-success" id="loginSuccess"></div>
+
+      <div class="auth-form">
+
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" />
+            <button type="button" class="toggle-password" onclick="togglePwd('login-password', this)">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row-flex">
+          <label class="remember-label">
+            <input type="checkbox" id="rememberMe" />
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button class="auth-submit-btn" onclick="handleLogin()">
+          <i class="fas fa-sign-in-alt" style="margin-right:8px;"></i>Sign In
+        </button>
+
+      </div>
+
+      <a href="index.html" class="back-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+  const API_BASE = 'http://localhost:5000/api';
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Show redirect notice if user was redirected from protected page
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('redirect') === '1') {
+      document.getElementById('redirectNotice').classList.add('show');
+    }
+    // If already logged in (session active), go home
+    checkExistingSession();
+  });
+
+  async function checkExistingSession() {
+    try {
+      const res  = await fetch(`${API_BASE}/auth/me`, { credentials: 'include' });
+      const data = await res.json();
+      if (data.success) redirectAfterLogin();
+    } catch {}
+  }
+
+  function redirectAfterLogin() {
+    const params   = new URLSearchParams(window.location.search);
+    const returnTo = params.get('returnTo') || 'index.html';
+    window.location.href = returnTo;
+  }
+
+  function togglePwd(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon  = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'fas fa-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'fas fa-eye';
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('loginError');
+    el.textContent = msg;
+    el.classList.add('show');
+    document.getElementById('loginSuccess').classList.remove('show');
+  }
+
+  function showSuccess(msg) {
+    const el = document.getElementById('loginSuccess');
+    el.textContent = msg;
+    el.classList.add('show');
+    document.getElementById('loginError').classList.remove('show');
+  }
+
+  async function handleLogin() {
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    // Frontend validation
+    if (!email || !password) { showError('Please enter your email and password.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
+    if (password.length < 6) { showError('Password must be at least 6 characters.'); return; }
+
+    try {
+      const res  = await fetch(`${API_BASE}/auth/login`, {
+        method:      'POST',
+        headers:     { 'Content-Type': 'application/json' },
+        credentials: 'include', // Important: sends/receives session cookie
+        body:        JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        // Store lightweight user info in sessionStorage for UI only
+        sessionStorage.setItem('pizzeria_user', JSON.stringify(data.user));
+        showSuccess(`Welcome back, ${data.user.name}! 🍕 Redirecting...`);
+        setTimeout(() => redirectAfterLogin(), 900);
+      } else {
+        showError(data.message || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      showError('Cannot connect to server. Make sure the backend is running.');
+    }
+  }
+
+  // Allow Enter key to submit
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+</script>
+</body>
+</html>
